@@ -1,4 +1,5 @@
 
+// app/Layout.js
 'use client'; // Ensure this file is treated as a Client Component
 
 import { SessionProvider } from 'next-auth/react';

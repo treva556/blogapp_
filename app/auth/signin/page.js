@@ -1,6 +1,6 @@
 
 
-// pages/auth/signin.js
+// app/auth/signin.js
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 

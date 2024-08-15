@@ -1,5 +1,5 @@
 
-
+// app/pages.js
 'use client';
 
 import PostList from '../components/PostList';
