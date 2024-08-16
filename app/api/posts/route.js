@@ -1,4 +1,6 @@
 
+
+// app/api/posts/routes
 import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/react";
 

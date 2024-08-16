@@ -1,22 +1,24 @@
 
 
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+
+
+
+// app/api/auth/[...nextauth]/route.js
+import NextAuth from "next-auth/next";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: "Email", type: "text" },
+        email: { label: "Email", type: "text", placeholder: "example@example.com" },
         password: { label: "Password", type: "password" }
       },
       authorize: async (credentials) => {
-        // Replace with your own authentication logic
-        const user = { id: 1, name: 'Test User', email: credentials.email };
-
-        if (user) {
-          return user;
+        // Replace with actual logic to validate credentials
+        if (credentials.email === "test@example.com" && credentials.password === "password") {
+          return { id: 1, name: 'Test User', email: credentials.email };
         } else {
           return null;
         }
@@ -24,23 +26,25 @@ const authOptions = {
     })
   ],
   pages: {
-    signIn: '/auth/signin', // Customize the sign-in page if needed
+    signIn: '/auth/signin',
   },
   session: {
-    strategy: 'jwt', // Use JSON Web Tokens for session management
+    strategy: 'jwt',
   },
   callbacks: {
     async session({ session, token }) {
+      session.user.id = token.sub;
+      session.user.email = token.email;
       return session;
     }
   }
 };
 
-// NextAuth.js requires a named export for each HTTP method
-export async function GET(req) {
-  return NextAuth(req, authOptions);
+export async function GET(req, res) {
+  return await NextAuth(req, res, authOptions);
 }
 
-export async function POST(req) {
-  return NextAuth(req, authOptions);
+export async function POST(req, res) {
+  return await NextAuth(req, res, authOptions);
 }
+
