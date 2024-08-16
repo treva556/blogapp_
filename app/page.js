@@ -45,11 +45,15 @@
 import { useSession } from 'next-auth/react';
 
 export default function Home() {
-  const { data: session } = useSession();
-  
+  const { data: session, status } = useSession();
+  console.log('Session data:', session);
+  console.log('Session status:', status);
+
   return (
     <div>
-      {session ? (
+      {status === 'loading' ? (
+        <p>Loading...</p>
+      ) : session ? (
         <p>Welcome, {session.user.name}</p>
       ) : (
         <p>You are not logged in.</p>

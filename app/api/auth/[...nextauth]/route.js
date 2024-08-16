@@ -33,6 +33,7 @@ const authOptions = {
   },
   callbacks: {
     async session({ session, token }) {
+      console.log('Session callback:', { session, token }); // Debugging line
       session.user.id = token.sub;
       session.user.email = token.email;
       return session;
